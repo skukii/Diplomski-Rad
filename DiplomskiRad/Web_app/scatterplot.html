@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Scatter Plot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F4F4F4;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            margin-top: 40px;
+            color: #333;
+        }
+
+        #scatterplot {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .axis {
+            stroke: #333;
+            stroke-width: 2px;
+        }
+
+        .tick {
+            font-size: 14px;
+        }
+
+        .tick line {
+            stroke: #333;
+            stroke-width: 1px;
+            stroke-opacity: 0.2;
+        }
+
+        .btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #66c2a5;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Scatter Plot Example</h1>
+        <div id="scatterplot"></div>
+        <button class="btn" onclick="window.location.href='http://localhost:5000/'">Back</button>
+    </div>
+    <script type="text/javascript">
+        // Define the data for the scatter plot
+        // Set up the dimensions of the chart
+        const width = 500;
+        const height = 500;
+        const margin = { top: 50, right: 50, bottom: 50, left: 50 };
+        const chartWidth = width - margin.left - margin.right;
+        const chartHeight = height - margin.top - margin.bottom;
+
+        // Create an SVG element to hold the chart
+        const svg = d3.select('#scatterplot')
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height);
+
+        // Load the data from a CSV file
+        d3.csv('/test.csv').then(data => {
+
+            // Convert the data from strings to numbers
+            data.forEach(d => {
+                d.x = +d.x;
+                d.y = +d.y;
+            });
+            console.log(data)
+
+            // Set up scales for the x and y axes
+            const xScale = d3.scaleLinear()
+                .domain(d3.extent(data, d => d.x))
+                .range([0, chartWidth]);
+
+            const yScale = d3.scaleLinear()
+                .domain(d3.extent(data, d => d.y))
+                .range([chartHeight, 0]);
+
+            // Add the x and y axes to the chart
+            svg.append('g')
+                .attr('transform', `translate(${margin.left}, ${height - margin.bottom})`)
+                .call(d3.axisBottom(xScale));
+
+            svg.append('g')
+                .attr('transform', `translate(${margin.left}, ${margin.top})`)
+                .call(d3.axisLeft(yScale));
+
+            // Add circles for each data point
+            svg.selectAll('circle')
+                .data(data)
+                .enter()
+                .append('circle')
+                .attr('cx', d => xScale(d.x) + margin.left)
+                .attr('cy', d => yScale(d.y) + margin.top)
+                .attr('r', 5)
+                .attr('fill', 'steelblue');
+        });
+
+    </script>
+</body>
+
+</html>

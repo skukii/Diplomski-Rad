@@ -1,0 +1,471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AgroMeteoroloskiPodaci>
+<Naslov>Meteorološki podaci za Hrvatsku za razdoblje 05.03.2023 do 12.03.2023 u 7 h</Naslov>
+<Podaci>
+	<Grad>
+		<GradIme>Osijek</GradIme>
+		<Tmax>19.7</Tmax>
+		<Tmin>-0.9</Tmin>
+		<Tmin5>-5</Tmin5>
+		<Obor>22.7</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>100</VlagaMax>
+		<VlagaMin>45</VlagaMin>
+		<Sunce>18.9</Sunce>
+		<Tna5Max>13.6</Tna5Max>
+		<Tna5Min> 2.1</Tna5Min>
+		<Tna20Max> 9.6</Tna20Max>
+		<Tna20Min> 5.7</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Gradište</GradIme>
+		<Tmax>19.2</Tmax>
+		<Tmin>-0.7</Tmin>
+		<Tmin5>-2.6</Tmin5>
+		<Obor>16.5</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>99</VlagaMax>
+		<VlagaMin>39</VlagaMin>
+		<Sunce>22.5</Sunce>
+		<Tna5Max>13.1</Tna5Max>
+		<Tna5Min> 1.8</Tna5Min>
+		<Tna20Max>10.0</Tna20Max>
+		<Tna20Min> 5.4</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Slavonski Brod</GradIme>
+		<Tmax>20.2</Tmax>
+		<Tmin>-3.1</Tmin>
+		<Tmin5>-4.1</Tmin5>
+		<Obor>26.8</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>95</VlagaMax>
+		<VlagaMin>39</VlagaMin>
+		<Sunce>-</Sunce>
+		<Tna5Max>13.2</Tna5Max>
+		<Tna5Min> 2.1</Tna5Min>
+		<Tna20Max> 9.6</Tna20Max>
+		<Tna20Min> 5.4</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Daruvar</GradIme>
+		<Tmax>18.2</Tmax>
+		<Tmin>-1.5</Tmin>
+		<Tmin5>-4</Tmin5>
+		<Obor>25.1</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>100</VlagaMax>
+		<VlagaMin>36</VlagaMin>
+		<Sunce>-</Sunce>
+		<Tna5Max>12.0</Tna5Max>
+		<Tna5Min> 2.4</Tna5Min>
+		<Tna20Max> 9.8</Tna20Max>
+		<Tna20Min> 4.8</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Bjelovar</GradIme>
+		<Tmax>18.6</Tmax>
+		<Tmin>-0.8</Tmin>
+		<Tmin5>-5</Tmin5>
+		<Obor>18</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>97</VlagaMax>
+		<VlagaMin>47</VlagaMin>
+		<Sunce>24.8</Sunce>
+		<Tna5Max>13.0</Tna5Max>
+		<Tna5Min> 2.0</Tna5Min>
+		<Tna20Max> 9.6</Tna20Max>
+		<Tna20Min> 4.3</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Križevci</GradIme>
+		<Tmax>18.6</Tmax>
+		<Tmin>-1.4</Tmin>
+		<Tmin5>-4</Tmin5>
+		<Obor>10.8</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>98</VlagaMax>
+		<VlagaMin>49</VlagaMin>
+		<Sunce>-</Sunce>
+		<Tna5Max>12.7</Tna5Max>
+		<Tna5Min> 2.2</Tna5Min>
+		<Tna20Max> 9.2</Tna20Max>
+		<Tna20Min> 4.8</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Varaždin*</GradIme>
+		<Tmax>19.1</Tmax>
+		<Tmin>-2.3</Tmin>
+		<Tmin5>-7</Tmin5>
+		<Obor> 4.0</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>97</VlagaMax>
+		<VlagaMin></VlagaMin>
+		<Sunce>13.2</Sunce>
+		<Tna5Max>-</Tna5Max>
+		<Tna5Min>-</Tna5Min>
+		<Tna20Max>-</Tna20Max>
+		<Tna20Min>-</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Krapina</GradIme>
+		<Tmax>18.2</Tmax>
+		<Tmin>-1.5</Tmin>
+		<Tmin5>-4.4</Tmin5>
+		<Obor> 6.3</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>98</VlagaMax>
+		<VlagaMin>38</VlagaMin>
+		<Sunce>31.2</Sunce>
+		<Tna5Max>15.5</Tna5Max>
+		<Tna5Min> 1.6</Tna5Min>
+		<Tna20Max> 8.9</Tna20Max>
+		<Tna20Min> 4.4</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Zagreb-Maksimir</GradIme>
+		<Tmax>19.8</Tmax>
+		<Tmin>-1.0</Tmin>
+		<Tmin5>-3.5</Tmin5>
+		<Obor>11.8</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>96</VlagaMax>
+		<VlagaMin>44</VlagaMin>
+		<Sunce>26.9</Sunce>
+		<Tna5Max>12.6</Tna5Max>
+		<Tna5Min> 1.9</Tna5Min>
+		<Tna20Max> 9.9</Tna20Max>
+		<Tna20Min> 4.9</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Sisak</GradIme>
+		<Tmax>20.2</Tmax>
+		<Tmin> 0.2</Tmin>
+		<Tmin5>-4.0</Tmin5>
+		<Obor>9.4</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>99</VlagaMax>
+		<VlagaMin>44</VlagaMin>
+		<Sunce>-</Sunce>
+		<Tna5Max>13.1</Tna5Max>
+		<Tna5Min> 2.3</Tna5Min>
+		<Tna20Max> 9.7</Tna20Max>
+		<Tna20Min> 4.7</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Karlovac</GradIme>
+		<Tmax>19.0</Tmax>
+		<Tmin>-1.1</Tmin>
+		<Tmin5>-4.6</Tmin5>
+		<Obor> 5.0</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>99</VlagaMax>
+		<VlagaMin>39</VlagaMin>
+		<Sunce>27.0</Sunce>
+		<Tna5Max>17.6</Tna5Max>
+		<Tna5Min> 1.6</Tna5Min>
+		<Tna20Max> 9.9</Tna20Max>
+		<Tna20Min> 4.7</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Ogulin</GradIme>
+		<Tmax>16.6</Tmax>
+		<Tmin>-2.1</Tmin>
+		<Tmin5>-4.0</Tmin5>
+		<Obor>25.2</Obor>
+		<Snijeg>7</Snijeg>
+		<VlagaMax>98</VlagaMax>
+		<VlagaMin>55</VlagaMin>
+		<Sunce>26.2</Sunce>
+		<Tna5Max>13.6</Tna5Max>
+		<Tna5Min> 0.5</Tna5Min>
+		<Tna20Max> 8.5</Tna20Max>
+		<Tna20Min> 2.1</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Gospić</GradIme>
+		<Tmax>14.4</Tmax>
+		<Tmin>-6.1</Tmin>
+		<Tmin5>-7.9</Tmin5>
+		<Obor>30.7</Obor>
+		<Snijeg>19</Snijeg>
+		<VlagaMax>97</VlagaMax>
+		<VlagaMin>42</VlagaMin>
+		<Sunce>18.1</Sunce>
+		<Tna5Max>11.9</Tna5Max>
+		<Tna5Min>-0.5</Tna5Min>
+		<Tna20Max> 7.3</Tna20Max>
+		<Tna20Min> 1.2</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Parg-Čabar</GradIme>
+		<Tmax>11.6</Tmax>
+		<Tmin>-2.9</Tmin>
+		<Tmin5>-4.5</Tmin5>
+		<Obor>10.9</Obor>
+		<Snijeg>15</Snijeg>
+		<VlagaMax>98</VlagaMax>
+		<VlagaMin>57</VlagaMin>
+		<Sunce>15.3</Sunce>
+		<Tna5Max> 7.2</Tna5Max>
+		<Tna5Min> 0.3</Tna5Min>
+		<Tna20Max>-999.9</Tna20Max>
+		<Tna20Min>-999.9</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Zavižan</GradIme>
+		<Tmax> 5.8</Tmax>
+		<Tmin>-7.1</Tmin>
+		<Tmin5>-8</Tmin5>
+		<Obor>39.1</Obor>
+		<Snijeg>88</Snijeg>
+		<VlagaMax>100</VlagaMax>
+		<VlagaMin>83</VlagaMin>
+		<Sunce>15.3</Sunce>
+		<Tna5Max>-</Tna5Max>
+		<Tna5Min>-</Tna5Min>
+		<Tna20Max>-</Tna20Max>
+		<Tna20Min>-</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Poreč</GradIme>
+		<Tmax>17.2</Tmax>
+		<Tmin>2.7</Tmin>
+		<Tmin5>0</Tmin5>
+		<Obor> 7.7</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>90</VlagaMax>
+		<VlagaMin></VlagaMin>
+		<Sunce>-</Sunce>
+		<Tna5Max> 9.6</Tna5Max>
+		<Tna5Min> 7.6</Tna5Min>
+		<Tna20Max>13.0</Tna20Max>
+		<Tna20Min> 3.8</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Pazin</GradIme>
+		<Tmax>17.5</Tmax>
+		<Tmin> 0.2</Tmin>
+		<Tmin5>-3.3</Tmin5>
+		<Obor>13.9</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>97</VlagaMax>
+		<VlagaMin>36</VlagaMin>
+		<Sunce>37.8</Sunce>
+		<Tna5Max>15.6</Tna5Max>
+		<Tna5Min> 2.0</Tna5Min>
+		<Tna20Max>10.2</Tna20Max>
+		<Tna20Min> 6.5</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Pula</GradIme>
+		<Tmax>19.1</Tmax>
+		<Tmin> 2.0</Tmin>
+		<Tmin5>-</Tmin5>
+		<Obor> 4.7</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>93</VlagaMax>
+		<VlagaMin>-16</VlagaMin>
+		<Sunce>-</Sunce>
+		<Tna5Max>-</Tna5Max>
+		<Tna5Min>-</Tna5Min>
+		<Tna20Max>-</Tna20Max>
+		<Tna20Min>-</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Rijeka</GradIme>
+		<Tmax>16.1</Tmax>
+		<Tmin>4.5</Tmin>
+		<Tmin5>-0.1</Tmin5>
+		<Obor>19.5</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>94</VlagaMax>
+		<VlagaMin>43</VlagaMin>
+		<Sunce>22.6</Sunce>
+		<Tna5Max>14.7</Tna5Max>
+		<Tna5Min> 4.7</Tna5Min>
+		<Tna20Max>11.6</Tna20Max>
+		<Tna20Min> 7.1</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Senj</GradIme>
+		<Tmax>17.5</Tmax>
+		<Tmin>5.6</Tmin>
+		<Tmin5>5</Tmin5>
+		<Obor>19.0</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>93</VlagaMax>
+		<VlagaMin>40</VlagaMin>
+		<Sunce>22.0</Sunce>
+		<Tna5Max>-</Tna5Max>
+		<Tna5Min>-</Tna5Min>
+		<Tna20Max>-</Tna20Max>
+		<Tna20Min>-</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Rab</GradIme>
+		<Tmax>18.4</Tmax>
+		<Tmin> 7.4</Tmin>
+		<Tmin5> 2.2</Tmin5>
+		<Obor>28.0</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>91</VlagaMax>
+		<VlagaMin>37</VlagaMin>
+		<Sunce>33.9</Sunce>
+		<Tna5Max>16.4</Tna5Max>
+		<Tna5Min> 5.2</Tna5Min>
+		<Tna20Max>12.7</Tna20Max>
+		<Tna20Min> 8.8</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Mali Lošinj</GradIme>
+		<Tmax>19.4</Tmax>
+		<Tmin> 8.1</Tmin>
+		<Tmin5> 3.1</Tmin5>
+		<Obor>14.7</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>94</VlagaMax>
+		<VlagaMin>46</VlagaMin>
+		<Sunce>37.8</Sunce>
+		<Tna5Max>17.7</Tna5Max>
+		<Tna5Min> 4.9</Tna5Min>
+		<Tna20Max>13.4</Tna20Max>
+		<Tna20Min> 8.1</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Zadar</GradIme>
+		<Tmax>17.0</Tmax>
+		<Tmin> 6.9</Tmin>
+		<Tmin5> 2.0</Tmin5>
+		<Obor> 6.9</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>93</VlagaMax>
+		<VlagaMin>51</VlagaMin>
+		<Sunce>35.5</Sunce>
+		<Tna5Max>15.6</Tna5Max>
+		<Tna5Min> 6.4</Tna5Min>
+		<Tna20Max>13.5</Tna20Max>
+		<Tna20Min> 8.6</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Šibenik</GradIme>
+		<Tmax>18.7</Tmax>
+		<Tmin> 4.3</Tmin>
+		<Tmin5>-0.4</Tmin5>
+		<Obor>10.4</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>88</VlagaMax>
+		<VlagaMin>43</VlagaMin>
+		<Sunce>40.7</Sunce>
+		<Tna5Max>-</Tna5Max>
+		<Tna5Min>-</Tna5Min>
+		<Tna20Max>-</Tna20Max>
+		<Tna20Min>-</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Knin*</GradIme>
+		<Tmax>17.7</Tmax>
+		<Tmin>6.3</Tmin>
+		<Tmin5>-2.1</Tmin5>
+		<Obor>41.2</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>99</VlagaMax>
+		<VlagaMin>28</VlagaMin>
+		<Sunce> 4.0</Sunce>
+		<Tna5Max>-</Tna5Max>
+		<Tna5Min>-</Tna5Min>
+		<Tna20Max>-</Tna20Max>
+		<Tna20Min>-</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Split-Marjan</GradIme>
+		<Tmax>16.7</Tmax>
+		<Tmin> 7.8</Tmin>
+		<Tmin5> 1.2</Tmin5>
+		<Obor>33.9</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>87</VlagaMax>
+		<VlagaMin>38</VlagaMin>
+		<Sunce>32.2</Sunce>
+		<Tna5Max>17.4</Tna5Max>
+		<Tna5Min> 5.0</Tna5Min>
+		<Tna20Max>11.8</Tna20Max>
+		<Tna20Min> 7.8</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Ploče</GradIme>
+		<Tmax>18.0</Tmax>
+		<Tmin> 3.0</Tmin>
+		<Tmin5>-0.8</Tmin5>
+		<Obor>10.5</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>97</VlagaMax>
+		<VlagaMin>37</VlagaMin>
+		<Sunce>34.1</Sunce>
+		<Tna5Max>17.0</Tna5Max>
+		<Tna5Min> 3.0</Tna5Min>
+		<Tna20Max>12.8</Tna20Max>
+		<Tna20Min> 7.8</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Dubrovnik</GradIme>
+		<Tmax>17.7</Tmax>
+		<Tmin> 7.8</Tmin>
+		<Tmin5>-</Tmin5>
+		<Obor>11.2</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>90</VlagaMax>
+		<VlagaMin>40</VlagaMin>
+		<Sunce>29.7</Sunce>
+		<Tna5Max>16.5</Tna5Max>
+		<Tna5Min> 7.2</Tna5Min>
+		<Tna20Max>13.5</Tna20Max>
+		<Tna20Min>10.6</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Hvar</GradIme>
+		<Tmax>18.5</Tmax>
+		<Tmin> 5.5</Tmin>
+		<Tmin5> 2.5</Tmin5>
+		<Obor> 8.3</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>90</VlagaMax>
+		<VlagaMin>42</VlagaMin>
+		<Sunce>43.8</Sunce>
+		<Tna5Max>-</Tna5Max>
+		<Tna5Min>-</Tna5Min>
+		<Tna20Max>-</Tna20Max>
+		<Tna20Min>-</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Komiža</GradIme>
+		<Tmax>20.6</Tmax>
+		<Tmin> 7.0</Tmin>
+		<Tmin5> 4.1</Tmin5>
+		<Obor> 4.2</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>91</VlagaMax>
+		<VlagaMin>46</VlagaMin>
+		<Sunce>-</Sunce>
+		<Tna5Max>19.3</Tna5Max>
+		<Tna5Min> 7.4</Tna5Min>
+		<Tna20Max>15.7</Tna20Max>
+		<Tna20Min>10.4</Tna20Min>
+	</Grad>
+	<Grad>
+		<GradIme>Lastovo</GradIme>
+		<Tmax>19.2</Tmax>
+		<Tmin> 9.4</Tmin>
+		<Tmin5>-</Tmin5>
+		<Obor> 3.6</Obor>
+		<Snijeg>-</Snijeg>
+		<VlagaMax>91</VlagaMax>
+		<VlagaMin>45</VlagaMin>
+		<Sunce>51.3</Sunce>
+		<Tna5Max>-</Tna5Max>
+		<Tna5Min>-</Tna5Min>
+		<Tna20Max>-</Tna20Max>
+		<Tna20Min>-</Tna20Min>
+	</Grad>
+</Podaci>
+</AgroMeteoroloskiPodaci>

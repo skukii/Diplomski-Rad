@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<visine_snijega>
+<naslov>Visine snijega u Hrvatskoj 02.03.2023 u 07 h</naslov>
+<grad>
+<ime>Begovo Razdolje</ime>
+<snijeg> 80</snijeg>
+<novi_snijeg>  6</novi_snijeg>
+</grad>
+<grad>
+<ime>Bosiljevo</ime>
+<snijeg> 11</snijeg>
+<novi_snijeg>  1</novi_snijeg>
+</grad>
+<grad>
+<ime>Crni Lug-NP Risnjak</ime>
+<snijeg> 36</snijeg>
+<novi_snijeg>  9</novi_snijeg>
+</grad>
+<grad>
+<ime>Delnice</ime>
+<snijeg> 61</snijeg>
+<novi_snijeg>-</novi_snijeg>
+</grad>
+<grad>
+<ime>Gospić</ime>
+<snijeg> 57</snijeg>
+<novi_snijeg>  4</novi_snijeg>
+</grad>
+<grad>
+<ime>Gračac</ime>
+<snijeg> 52</snijeg>
+<novi_snijeg>  2</novi_snijeg>
+</grad>
+<grad>
+<ime>Hrvatska Kostajnica</ime>
+<snijeg> 11</snijeg>
+<novi_snijeg>-</novi_snijeg>
+</grad>
+<grad>
+<ime>Karlovac</ime>
+<snijeg>  4</snijeg>
+<novi_snijeg>-</novi_snijeg>
+</grad>
+<grad>
+<ime>Ličko Lešće</ime>
+<snijeg>  9</snijeg>
+<novi_snijeg>-</novi_snijeg>
+</grad>
+<grad>
+<ime>Ogulin</ime>
+<snijeg> 23</snijeg>
+<novi_snijeg>  4</novi_snijeg>
+</grad>
+<grad>
+<ime>Otočac</ime>
+<snijeg> 10</snijeg>
+<novi_snijeg>-</novi_snijeg>
+</grad>
+<grad>
+<ime>Parg-Čabar</ime>
+<snijeg> 42</snijeg>
+<novi_snijeg>  9</novi_snijeg>
+</grad>
+<grad>
+<ime>Plaški</ime>
+<snijeg> 36</snijeg>
+<novi_snijeg> 10</novi_snijeg>
+</grad>
+<grad>
+<ime>Požega</ime>
+<snijeg>  5</snijeg>
+<novi_snijeg>-</novi_snijeg>
+</grad>
+<grad>
+<ime>RC Puntijarka</ime>
+<snijeg> 41</snijeg>
+<novi_snijeg>  6</novi_snijeg>
+</grad>
+<grad>
+<ime>Slunj</ime>
+<snijeg> 25</snijeg>
+<novi_snijeg>-</novi_snijeg>
+</grad>
+<grad>
+<ime>Zavižan</ime>
+<snijeg> 93</snijeg>
+<novi_snijeg>  2</novi_snijeg>
+</grad>
+</visine_snijega>
