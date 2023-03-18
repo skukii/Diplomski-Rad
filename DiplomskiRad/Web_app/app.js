@@ -21,6 +21,9 @@ app.get('/scatterplot', (req, res) => {
     res.sendFile(__dirname + '/scatterplot.html');
   });
   
+app.get('/heatmap', (req, res) => {
+    res.sendFile(__dirname + '/heatmap.html');
+});
 
 
 // Start the server
