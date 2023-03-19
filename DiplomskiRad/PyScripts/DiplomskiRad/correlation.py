@@ -2,7 +2,7 @@ import seaborn as sn
 import pandas as pd
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("cop_pin_osijek.csv")
+df = pd.read_csv("cop_pin_osijek_clean.csv")
 
 corr_matrix = df.corr()
 sn.heatmap(corr_matrix, annot=True)

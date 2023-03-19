@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Scatters Map</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F4F4F4;
+            margin: 0;
+            padding: 0;
+        }
+
+        #container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 48px;
+            margin-top: 40px;
+            color: #333;
+        }
+
+        #correlogram {
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .axis {
+            stroke: #333;
+            stroke-width: 2px;
+        }
+
+        .tick {
+            font-size: 14px;
+        }
+
+        .tick line {
+            stroke: #333;
+            stroke-width: 1px;
+            stroke-opacity: 0.2;
+        }
+
+        .btn {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #66c2a5;
+            cursor: pointer;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+</head>
+
+<body>
+    <div id="container">
+        <h1>Scatters Example</h1>
+        <div id="scatters"></div>
+        <button class="btn" onclick="window.location.href='http://localhost:5000/'">Back</button>
+    </div>
+    <script type="text/javascript">
+        // Define the data for the scatter plot
+        // Set up the dimensions of the chart
+        // Dimension of the whole chart. Only one size since it has to be square
+        const marginWhole = { top: 10, right: 10, bottom: 10, left: 10 },
+            sizeWhole = 1000 - marginWhole.left - marginWhole.right
+
+        // Create the svg area
+        const svg = d3.select("#scatters")
+            .append("svg")
+            .attr("width", sizeWhole + marginWhole.left + marginWhole.right)
+            .attr("height", sizeWhole + marginWhole.top + marginWhole.bottom)
+            .append("g")
+            .attr("transform", `translate(${marginWhole.left},${marginWhole.top})`);
+
+
+        // Load the data from a CSV file
+        d3.csv('/cop_pin_osijek_clean - Copy.csv').then(function (data) {
+
+            // What are the numeric variables in this dataset? How many do I have
+            const allVar = ['temp2m', 'sp', 'tcrw', 'temp-out', 'rain', 'bar']
+            const numVar = allVar.length
+
+            console.log(data)
+
+            // Now I can compute the size of a single chart
+            mar = 20
+            size = sizeWhole / numVar
+
+
+            // ----------------- //
+            // Scales
+            // ----------------- //
+
+            // Create a scale: gives the position of each pair each variable
+            const position = d3.scalePoint()
+                .domain(allVar)
+                .range([0, sizeWhole - size])
+
+            // Color scale: give me a specie name, I return a color
+
+
+            // ------------------------------- //
+            // Add charts
+            // ------------------------------- //
+            for (i in allVar) {
+                for (j in allVar) {
+
+                    // Get current variable name
+                    const var1 = allVar[i]
+                    const var2 = allVar[j]
+
+                    // If var1 == var2 i'm on the diagonal, I skip that
+                    if (var1 === var2) { continue; }
+
+                    // Add X Scale of each graph
+                    xextent = d3.extent(data, function (d) { return +d[var1] })
+                    const x = d3.scaleLinear()
+                        .domain(xextent).nice()
+                        .range([0, size - 2 * mar]);
+
+                    // Add Y Scale of each graph
+                    yextent = d3.extent(data, function (d) { return +d[var2] })
+                    const y = d3.scaleLinear()
+                        .domain(yextent).nice()
+                        .range([size - 2 * mar, 0]);
+
+                    // Add a 'g' at the right position
+                    const tmp = svg
+                        .append('g')
+                        .attr("transform", `translate(${position(var1) + mar},${position(var2) + mar})`);
+
+                    // Add X and Y axis in tmp
+                    tmp.append("g")
+                        .attr("transform", `translate(0,${size - mar * 2})`)
+                        .call(d3.axisBottom(x).ticks(3));
+                    tmp.append("g")
+                        .call(d3.axisLeft(y).ticks(3));
+
+                    // Add circle
+                    tmp
+                        .selectAll("myCircles")
+                        .data(data)
+                        .join("circle")
+                        .attr("cx", function (d) { return x(+d[var1]) })
+                        .attr("cy", function (d) { return y(+d[var2]) })
+                        .attr("r", 3)
+                }
+            }
+
+
+            // ------------------------------- //
+            // Add variable names = diagonal
+            // ------------------------------- //
+            for (i in allVar) {
+                for (j in allVar) {
+                    // If var1 == var2 i'm on the diagonal, otherwisee I skip
+                    if (i != j) { continue; }
+                    // Add text
+                    const var1 = allVar[i]
+                    const var2 = allVar[j]
+                    svg
+                        .append('g')
+                        .attr("transform", `translate(${position(var1)},${position(var2)})`)
+                        .append('text')
+                        .attr("x", size / 2)
+                        .attr("y", size / 2)
+                        .text(var1)
+                        .attr("text-anchor", "middle")
+
+                }
+            }
+
+
+        });
+    </script>
+</body>
+
+</html>

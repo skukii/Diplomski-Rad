@@ -24,6 +24,12 @@ app.get('/scatterplot', (req, res) => {
 app.get('/heatmap', (req, res) => {
     res.sendFile(__dirname + '/heatmap.html');
 });
+app.get('/correlogram', (req, res) => {
+    res.sendFile(__dirname + '/correlogram.html');
+});
+app.get('/scatters', (req, res) => {
+    res.sendFile(__dirname + '/scatters.html');
+});
 
 
 // Start the server
