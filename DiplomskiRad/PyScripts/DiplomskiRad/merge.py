@@ -20,7 +20,7 @@ for d in range(len(t2)):
     date_pinova = str(helper[0]) + '.' + str(helper[1]) + '.' + year + " " + str(t_time[d])
 pin["date_full"] = date_pinova
 
-both = pd.merge(cop, pin, how = 'left', on='date_full')
+both = pd.merge(cop, pin, how = 'inner', on='date_full').drop_duplicates()
 print(both)
 
-both.to_csv("cop_pin_osijek.csv")
+#both.to_csv("cop_pin_osijek.csv")
