@@ -63,7 +63,7 @@
 <body>
     <div id="container">
         <h1>Scatters Example</h1>
-        <div id="scatters"></div>
+        <div id="wind"></div>
         <button class="btn" onclick="window.location.href='http://localhost:5000/'">Back</button>
     </div>
     <script type="text/javascript">
@@ -74,7 +74,7 @@
             sizeWhole = 1000 - marginWhole.left - marginWhole.right
 
         // Create the svg area
-        const svg = d3.select("#scatters")
+        const svg = d3.select("#wind")
             .append("svg")
             .attr("width", sizeWhole + marginWhole.left + marginWhole.right)
             .attr("height", sizeWhole + marginWhole.top + marginWhole.bottom)

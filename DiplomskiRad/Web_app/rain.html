@@ -87,7 +87,7 @@
 <body>
     <div id="container">
         <h1>Heatmap Example</h1>
-        <div id="heatmap"></div>
+        <div id="rain"></div>
         <button class="btn" onclick="window.location.href='http://localhost:5000/'">Back</button>
     </div>
     <script type="text/javascript">
@@ -98,7 +98,7 @@
         const margin = { top: 50, right: 50, bottom: 150, left: 50 };
 
         // Create an SVG element to hold the chart
-        var svg = d3.select("#heatmap")
+        var svg = d3.select("#rain")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)

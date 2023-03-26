@@ -17,18 +17,18 @@ app.get('/', (req, res) => {
         message: 'Welcome to my web page!'
     });
 });
-app.get('/scatterplot', (req, res) => {
-    res.sendFile(__dirname + '/scatterplot.html');
+app.get('/air_conditions', (req, res) => {
+    res.sendFile(__dirname + '/air_conditions.html');
   });
   
-app.get('/heatmap', (req, res) => {
-    res.sendFile(__dirname + '/heatmap.html');
+app.get('/rain', (req, res) => {
+    res.sendFile(__dirname + '/rain.html');
 });
-app.get('/correlogram', (req, res) => {
-    res.sendFile(__dirname + '/correlogram.html');
+app.get('/temperature', (req, res) => {
+    res.sendFile(__dirname + '/temperature.html');
 });
-app.get('/scatters', (req, res) => {
-    res.sendFile(__dirname + '/scatters.html');
+app.get('/wind', (req, res) => {
+    res.sendFile(__dirname + '/wind.html');
 });
 
 
