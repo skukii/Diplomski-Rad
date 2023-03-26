@@ -63,7 +63,7 @@
 <body>
     <div id="container">
         <h1>Heatmap Example</h1>
-        <div id="correlogram"></div>
+        <div id="temperature"></div>
         <button class="btn" onclick="window.location.href='http://localhost:5000/'">Back</button>
     </div>
     <script type="text/javascript">
@@ -74,7 +74,7 @@
             height = 800 - margin.top - margin.bottom
 
         // Create an SVG element to hold the chart
-        var svg = d3.select("#correlogram")
+        var svg = d3.select("#temperature")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -83,7 +83,7 @@
                 "translate(" + margin.left + "," + margin.top + ")");
 
         // Load the data from a CSV file
-        d3.csv('/correlation_pin_cop_osijek - Copy.csv').then(function (rows) {
+        d3.csv('/pin_cop_osijek_temperature_corr - Copy.csv').then(function (rows) {
             const data = [];
             rows.forEach(function (d) {
                 let x = d[""];
@@ -180,6 +180,7 @@
                 .style("opacity", 0.8)
         });
     </script>
+    
 </body>
 
 </html>

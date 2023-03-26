@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Scatter Plot</title>
+    <title>Air Conditions</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -63,7 +63,7 @@
 <body>
     <div id="container">
         <h1>Scatter Plot Example</h1>
-        <div id="scatterplot"></div>
+        <div id="air_conditions"></div>
         <button class="btn" onclick="window.location.href='http://localhost:5000/'">Back</button>
     </div>
     <script type="text/javascript">
@@ -76,7 +76,7 @@
         const chartHeight = height - margin.top - margin.bottom;
 
         // Create an SVG element to hold the chart
-        const svg = d3.select('#scatterplot')
+        const svg = d3.select('#air_conditions')
             .append('svg')
             .attr('width', width)
             .attr('height', height);
