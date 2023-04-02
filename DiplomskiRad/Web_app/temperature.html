@@ -16,6 +16,19 @@
             max-width: 960px;
             margin: 0 auto;
             padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        #heatmap {
+            width: calc(50% - 10px);
+            float: left;
+        }
+
+        #scatterplot {
+            width: calc(50% - 10px);
+            float: right;
         }
 
         h1 {
@@ -23,11 +36,6 @@
             font-size: 48px;
             margin-top: 40px;
             color: #333;
-        }
-
-        #correlogram {
-            margin: 0 auto;
-            text-align: center;
         }
 
         .axis {
@@ -62,19 +70,20 @@
 
 <body>
     <div id="container">
+        <div id="heatmap"></div>
+        <div id="scatterplot"></div>
         <h1>Heatmap Example</h1>
-        <div id="temperature"></div>
         <button class="btn" onclick="window.location.href='http://localhost:5000/'">Back</button>
     </div>
     <script type="text/javascript">
         // Define the data for the scatter plot
         // Set up the dimensions of the chart
         const margin = { top: 20, right: 20, bottom: 20, left: 20 },
-            width = 800 - margin.left - margin.right,
-            height = 800 - margin.top - margin.bottom
+            width = 400 - margin.left - margin.right,
+            height = 400 - margin.top - margin.bottom
 
         // Create an SVG element to hold the chart
-        var svg = d3.select("#temperature")
+        var svg = d3.select("#heatmap")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
@@ -178,6 +187,117 @@
                     }
                 })
                 .style("opacity", 0.8)
+        })
+        const marginWhole = { top: 10, right: 10, bottom: 10, left: 10 },
+            sizeWhole = 400 - marginWhole.left - marginWhole.right
+
+        // Create the svg area
+        const svg_second = d3.select("#scatterplot")
+            .append("svg")
+            .attr("width", sizeWhole + marginWhole.left + marginWhole.right)
+            .attr("height", sizeWhole + marginWhole.top + marginWhole.bottom)
+            .append("g")
+            .attr("transform", `translate(${marginWhole.left},${marginWhole.top})`);
+
+
+        // Load the data from a CSV file
+        d3.csv('/cop_pin_osijek_clean - Copy.csv').then(function (data) {
+
+            // What are the numeric variables in this dataset? How many do I have
+            const allVar = ['temp2m', 'sp', 'tcrw', 'temp-out', 'rain', 'bar']
+            const numVar = allVar.length
+
+            console.log(data)
+
+            // Now I can compute the size of a single chart
+            mar = 20
+            size = sizeWhole / numVar
+
+
+            // ----------------- //
+            // Scales
+            // ----------------- //
+
+            // Create a scale: gives the position of each pair each variable
+            const position = d3.scalePoint()
+                .domain(allVar)
+                .range([0, sizeWhole - size])
+
+            // Color scale: give me a specie name, I return a color
+
+
+            // ------------------------------- //
+            // Add charts
+            // ------------------------------- //
+            for (i in allVar) {
+                for (j in allVar) {
+
+                    // Get current variable name
+                    const var1 = allVar[i]
+                    const var2 = allVar[j]
+
+                    // If var1 == var2 i'm on the diagonal, I skip that
+                    if (var1 === var2) { continue; }
+
+                    // Add X Scale of each graph
+                    xextent = d3.extent(data, function (d) { return +d[var1] })
+                    const x = d3.scaleLinear()
+                        .domain(xextent).nice()
+                        .range([0, size - 2 * mar]);
+
+                    // Add Y Scale of each graph
+                    yextent = d3.extent(data, function (d) { return +d[var2] })
+                    const y = d3.scaleLinear()
+                        .domain(yextent).nice()
+                        .range([size - 2 * mar, 0]);
+
+                    // Add a 'g' at the right position
+                    const tmp = svg
+                        .append('g')
+                        .attr("transform", `translate(${position(var1) + mar},${position(var2) + mar})`);
+
+                    // Add X and Y axis in tmp
+                    tmp.append("g")
+                        .attr("transform", `translate(0,${size - mar * 2})`)
+                        .call(d3.axisBottom(x).ticks(3));
+                    tmp.append("g")
+                        .call(d3.axisLeft(y).ticks(3));
+
+                    // Add circle
+                    tmp
+                        .selectAll("myCircles")
+                        .data(data)
+                        .join("circle")
+                        .attr("cx", function (d) { return x(+d[var1]) })
+                        .attr("cy", function (d) { return y(+d[var2]) })
+                        .attr("r", 3)
+                }
+            }
+
+
+            // ------------------------------- //
+            // Add variable names = diagonal
+            // ------------------------------- //
+            for (i in allVar) {
+                for (j in allVar) {
+                    // If var1 == var2 i'm on the diagonal, otherwisee I skip
+                    if (i != j) { continue; }
+                    // Add text
+                    const var1 = allVar[i]
+                    const var2 = allVar[j]
+                    svg
+                        .append('g')
+                        .attr("transform", `translate(${position(var1)},${position(var2)})`)
+                        .append('text')
+                        .attr("x", size / 2)
+                        .attr("y", size / 2)
+                        .text(var1)
+                        .attr("text-anchor", "middle")
+
+                }
+            }
+
+
         });
     </script>
     
