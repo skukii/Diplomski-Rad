@@ -4,6 +4,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy import stats
+import numpy as np
 
 air_ns = pd.read_csv("pin_cop_ns_air_web - Copy.csv", index_col = [0])
 rain_ns = pd.read_csv("pin_cop_ns_rain_web - Copy.csv", index_col = [0])
@@ -12,8 +14,31 @@ temp_ns = pd.read_csv("pin_cop_ns_temp_web - Copy.csv", index_col = [0])
 
 air_os = pd.read_csv("pin_cop_os_air_web - Copy.csv", index_col = [0])
 rain_os = pd.read_csv("pin_cop_os_rain_web - Copy.csv", index_col = [0])
-wind_os = pd.read_csv("pin_cop_os_wind_web - Copy.csv", index_col = [0])
+columns_helper = ["Speed [Pinova]", "Degrees [Pinova]", "Speed [Copernicus]", "Degrees [Copernicus]"]
+wind_os = pd.read_csv("pin_cop_os_wind_web - Copy.csv", index_col = [0])[['wind-speed', 'pinova_degrees', 'u_v_speed', 'u_v_wind_dir']]
+wind_os.rename(columns = {'wind-speed':'Speed [Pinova]', 'pinova_degrees': 'Direction [Pinova]', 'u_v_speed': 'Speed [Copernicus]', 'u_v_wind_dir': 'Direction [Copernicus]'}, inplace = True)
 temp_os = pd.read_csv("pin_cop_os_temp_web - Copy.csv", index_col = [0])
+
+air_bu = pd.read_csv("pin_cop_bu_air_web - Copy.csv", index_col = [0])
+air_bu = air_bu[["Air moisture.mean", "humidity"]]
+air_bu.fillna(0, inplace=True)
+air_bu.replace([np.inf, -np.inf], 0, inplace=True)
+rad_bu = pd.read_csv("pin_cop_bu_radiation_web - Copy.csv", index_col = [0])
+rad_bu.fillna(0, inplace=True)
+rad_bu.replace([np.inf, -np.inf], 0, inplace=True)
+rain_bu = pd.read_csv("pin_cop_bu_rain_web - Copy.csv", index_col = [0])
+rain_bu.fillna(0, inplace=True)
+rain_bu.replace([np.inf, -np.inf], 0, inplace=True)
+temp_ground_bu = pd.read_csv("pin_cop_bu_temp_ground_web - Copy.csv", index_col = [0])
+temp_ground_bu.fillna(0, inplace=True)
+temp_ground_bu.replace([np.inf, -np.inf], 0, inplace=True)
+temp_bu = pd.read_csv("pin_cop_bu_temp_web - Copy.csv", index_col = [0])
+temp_bu.fillna(0, inplace=True)
+temp_bu.replace([np.inf, -np.inf], 0, inplace=True)
+wind_bu = pd.read_csv("pin_cop_bu_wind_web - Copy.csv", index_col = [0])
+wind_bu = wind_bu[["Wind speed.mean","Wind direction.mean","u_v_speed","u_v_wind_dir"]]
+wind_bu.fillna(0, inplace=True)
+wind_bu.replace([np.inf, -np.inf], 0, inplace=True)
 
 
 
@@ -28,7 +53,8 @@ params = {"ytick.color" : "w",
           "axes.titlecolor" : "w",
           "text.color" : "w",
           "axes.facecolor" : "#00172B",
-          "axes.labelsize":36}
+          "axes.labelsize":36
+          }
 plt.rcParams.update(params)
 sns.set(rc={'axes.facecolor':'#00172B',
             'figure.facecolor':'#00172B',
@@ -42,144 +68,409 @@ sns.set(rc={'axes.facecolor':'#00172B',
             })
 
 
-sideb = st.sidebar
-check1 = sideb.button("Check or not?")
-check2 = sideb.button("Wind")
-check3 = sideb.button("Temperature")
-check4 = sideb.button("Soil")
-check5 = sideb.button("Air conditions")
-check6 = sideb.button("Rain")
 
+def coefficients(df, col1, col2, alpha):
+    corr_persons = stats.pearsonr(df[col1], df[col2])
+    st.write('2-tailed p-value Pearsons: ', corr_persons[1])
+    if corr_persons[1] < (float(alpha)/2):
+        st.write('There is a significant correlation between column1 and column2')
+    else:
+        st.write('There is no significant correlation between column1 and column2')
+    #st.markdown('_The p-value roughly indicates the probability of an uncorrelated system producing datasets that have a Pearson correlation at least as extreme as the one computed from these datasets._')
+    corr_kendall = stats.kendalltau(df[col1], df[col2])
+    st.write('2-tailed p-value Kendall: ', corr_kendall[1])
+    if corr_kendall[1] < (float(alpha)/2):
+        st.write('There is a significant correlation between column1 and column2')
+    else:
+        st.write('There is no significant correlation between column1 and column2')
+    #st.markdown('_The p - value for a hypothesis test whose null hypothesis is an absence of association, tau = 0._')
 
+    corr_spearmans = stats.spearmanr(df[col1], df[col2])
+    st.write('2-tailed p-value Spearman: ', corr_spearmans[1])
+    if corr_spearmans[1] < (float(alpha)/2):
+        st.write('There is a significant correlation between column1 and column2')
+    else:
+        st.write('There is no significant correlation between column1 and column2')
+    #st.markdown('_The p-value roughly indicates the probability of an uncorrelated system producing datasets that have a Spearman correlation at least as extreme as the one computed from these datasets.._')
 
-if check1:
-    iris = sns.load_dataset('iris')
-    st.title('Iris Dataset Scatterplot')
-    st.write(
-        'The iris dataset is a classic dataset in machine learning and statistics. It contains measurements of the physical characteristics of three different species of iris flowers: setosa, versicolor, and virginica.')
-    fig, ax = plt.subplots()
-    ax = sns.scatterplot(data=iris, x='sepal_length', y='petal_length', hue='species')
+def heatmap(df, title):
+    fig, axes = plt.subplots(1, 3, figsize=(15, 5), sharey=True)
+    fig.suptitle(title)
+
+    sns.heatmap(df.corr(method='pearson'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[0])
+    axes[0].set_title("Pearson")
+
+    sns.heatmap(df.corr(method='kendall'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[1])
+    axes[1].set_title("Kendall")
+
+    sns.heatmap(df.corr(method='spearman'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[2])
+    axes[2].set_title("Spearman")
+    fig.patch.set_facecolor("#00172B")
     st.pyplot(fig)
 
+def pairplot(df):
+    st.pyplot(sns.pairplot(data=df, height=10, aspect=1))
 
-elif check2:
+
+check = st.selectbox(
+        "Analysis of:",
+        ("Wind", "Temperature", "Soil", "Air conditions", "Rain"))
+
+
+if check == "Wind":
     st.title('Wind')
-    st.write('This is the second page of the app.')
+    option = st.selectbox(
+        "Location",
+        ("Osijek", "Budimci"))
 
-elif check3:
+    if (option == "Osijek"):
+
+        st.write(wind_os.describe())
+
+        columns = wind_os.columns
+
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
+
+
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(wind_os, option_one, option_two, alpha)
+
+        else:
+            coefficients(wind_os, option_one, option_two, alpha)
+
+        heatmap(wind_os, 'Wind comparisons and correlation')
+        pairplot(wind_os)
+
+    if (option == "Budimci"):
+
+        st.write(wind_bu.describe())
+
+        columns = wind_bu.columns
+
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
+
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(wind_bu, option_one, option_two)
+
+        else:
+            coefficients(wind_bu, option_one, option_two)
+
+        heatmap(wind_bu, 'Wind comparisons and correlation')
+        pairplot(wind_bu)
+
+
+
+
+elif check == "Temperature":
 
     option = st.selectbox(
         "Location",
-        ("Osijek", "Novi Rok"))
+        ("Osijek", "Novi Rok", "Budimci"))
 
     st.title('Temperature')
 
     if (option == "Novi Rok"):
 
-        fig, axes = plt.subplots(1, 3, figsize=(15, 5), sharey=True)
-        fig.suptitle('Temperature comparisons and correlation')
+        st.write(temp_ns.describe())
 
-        sns.heatmap(temp_ns.corr(method='pearson'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[0])
-        axes[0].set_title("Pearson")
+        columns = temp_ns.columns
 
-        sns.heatmap(temp_ns.corr(method='kendall'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[1])
-        axes[1].set_title("Kendall")
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
 
-        sns.heatmap(temp_ns.corr(method='spearman'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[2])
-        axes[2].set_title("Spearman")
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(temp_ns, option_one, option_two)
 
-        fig.patch.set_facecolor("#00172B")
+        else:
+            coefficients(temp_ns, option_one, option_two)
 
-        st.pyplot(fig)
+        heatmap(temp_ns, 'Temperature comparisons and correlation')
+        pairplot(temp_ns)
 
-        st.pyplot(sns.pairplot(data=temp_ns, height=10, aspect=1))
 
     elif(option == "Osijek"):
-        fig, axes = plt.subplots(1, 3, figsize=(15, 5), sharey=True)
-        fig.suptitle('Temperature comparisons and correlation')
 
-        sns.heatmap(temp_os.corr(method='pearson'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[0])
-        axes[0].set_title("Pearson")
+        st.write(temp_os.describe())
 
-        sns.heatmap(temp_os.corr(method='kendall'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[1])
-        axes[1].set_title("Kendall")
+        columns = temp_os.columns
 
-        sns.heatmap(temp_os.corr(method='spearman'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[2])
-        axes[2].set_title("Spearman")
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
 
-        fig.patch.set_facecolor("#00172B")
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(temp_os, option_one, option_two)
 
-        st.pyplot(fig)
+        else:
+            coefficients(temp_os, option_one, option_two)
 
-        st.pyplot(sns.pairplot(data=temp_os, height=10, aspect=1))
+        heatmap(temp_os, 'Temperature comparisons and correlation')
+        pairplot(temp_os[["dew-pt", "dew2m", "temp2m", "temp-out"]])
+        pairplot(temp_os[["max2mt", "min2mt", "hi-temp", "low-temp"]])
+
+
+    if (option == "Budimci"):
+
+        st.write(temp_bu.describe())
+
+        columns = temp_bu.columns
+
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
+
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(temp_bu, option_one, option_two)
+
+        else:
+            coefficients(temp_bu, option_one, option_two)
+
+        heatmap(temp_bu, 'Temperature comparisons and correlation')
+        pairplot(temp_bu)
 
 
 
-elif check4:
+elif check == "Soil":
     st.title('Soil')
-    st.write('This is the second page of the app.')
 
-    fig, axes = plt.subplots(1, 3, figsize=(15, 5), sharey=True)
-    fig.suptitle('Soil comparisons and correlation')
+    option = st.selectbox(
+        "Location",
+        ("Novi Rok", "Budimci"))
 
-    sns.heatmap(soil_ns.corr(method='pearson'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[0])
-    axes[0].set_title("Pearson")
+    if (option == "Novi Rok"):
 
-    sns.heatmap(soil_ns.corr(method='kendall'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[1])
-    axes[1].set_title("Kendall")
+        st.write(soil_ns.describe())
 
-    sns.heatmap(soil_ns.corr(method='spearman'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[2])
-    axes[2].set_title("Spearman")
+        columns = soil_ns.columns
 
-    fig.patch.set_facecolor("#00172B")
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
 
-    st.pyplot(fig)
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(soil_ns, option_one, option_two)
 
-    st.pyplot(sns.pairplot(data=soil_ns, height=10, aspect=1))
+        else:
+            coefficients(soil_ns, option_one, option_two)
 
-elif check5:
+        heatmap(soil_ns, 'Soil comparisons and correlation')
+        pairplot(soil_ns)
+
+    if (option == "Budimci"):
+
+        st.write(temp_ground_bu.describe())
+
+        columns = temp_ground_bu.columns
+
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
+
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(temp_ground_bu, option_one, option_two)
+
+        else:
+            coefficients(temp_ground_bu, option_one, option_two)
+
+        heatmap(temp_ground_bu, 'Soil comparisons and correlation')
+        pairplot(temp_ground_bu)
+
+elif check == "Air conditions":
     st.title('Air conditions')
-    st.write('This is the second page of the app.')
 
-    fig, axes = plt.subplots(1, 3, figsize=(15, 5), sharey=True)
-    fig.suptitle('Air conditions comparisons and correlation')
+    option = st.selectbox(
+        "Location",
+        ("Osijek", "Novi Rok", "Budimci"))
 
-    sns.heatmap(air_ns.corr(method='pearson'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[0])
-    axes[0].set_title("Pearson")
+    if (option == "Osijek"):
 
-    sns.heatmap(air_ns.corr(method='kendall'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[1])
-    axes[1].set_title("Kendall")
+        st.write(air_os.describe())
 
-    sns.heatmap(air_ns.corr(method='spearman'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[2])
-    axes[2].set_title("Spearman")
+        columns = air_os.columns
 
-    fig.patch.set_facecolor("#00172B")
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
 
-    st.pyplot(fig)
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(air_os, option_one, option_two)
 
-    st.pyplot(sns.pairplot(data=air_ns, height=10, aspect=1))
+        else:
+            coefficients(air_os, option_one, option_two)
 
-elif check6:
+        heatmap(air_os, 'Air conditions comparisons and correlation')
+        pairplot(air_os)
+
+    elif (option == "Novi Rok"):
+
+        st.write(air_ns.describe())
+
+        columns = air_ns.columns
+
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
+
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(air_ns, option_one, option_two)
+
+        else:
+            coefficients(air_ns, option_one, option_two)
+
+        heatmap(air_ns, 'Air conditions comparisons and correlation')
+        pairplot(air_ns)
+
+    elif (option == "Budimci"):
+
+        st.write(air_bu.describe())
+
+        columns = air_bu.columns
+
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
+
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(air_bu, option_one, option_two)
+
+        else:
+            coefficients(air_bu, option_one, option_two)
+
+        heatmap(air_bu, 'Air conditions comparisons and correlation')
+        pairplot(air_bu)
+
+        columns2 = rad_bu.columns
+
+        option_one2 = st.selectbox(
+            "Column 1:",
+            (columns2))
+        option_two2 = st.selectbox(
+            "Column 2:",
+            (columns2))
+
+        if ((option_one2 is not None) & (option_two2 is not None)):
+            coefficients(rad_bu, option_one2, option_two2)
+
+        else:
+            coefficients(rad_bu, option_one2, option_two2)
+
+        heatmap(rad_bu, 'Air conditions comparisons and correlation')
+        pairplot(rad_bu)
+
+
+elif check == "Rain":
     st.title('Rain')
-    st.write('This is the second page of the app.')
 
-    fig, axes = plt.subplots(1, 3, figsize=(15, 5), sharey=True)
-    fig.suptitle('Rain comparisons and correlation')
+    option = st.selectbox(
+        "Location",
+        ("Osijek", "Novi Rok", "Budimci"))
 
-    sns.heatmap(rain_ns.corr(method='pearson'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[0])
-    axes[0].set_title("Pearson")
+    if(option == "Osijek"):
 
-    sns.heatmap(rain_ns.corr(method='kendall'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[1])
-    axes[1].set_title("Kendall")
+        st.write(rain_os.describe())
 
-    sns.heatmap(rain_ns.corr(method='spearman'), vmin=-1, vmax=1, center=0, annot=True, linewidth=4, ax=axes[2])
-    axes[2].set_title("Spearman")
+        columns = rain_os.columns
 
-    fig.patch.set_facecolor("#00172B")
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
 
-    st.pyplot(fig)
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(rain_os, option_one, option_two)
 
-    st.pyplot(sns.pairplot(data=rain_ns, height=10, aspect=1))
+        else:
+            coefficients(rain_os, option_one, option_two)
+
+        heatmap(rain_os, 'Rain conditions comparisons and correlation')
+        pairplot(rain_os)
+
+    elif(option == "Novi Rok"):
+
+        st.write(rain_ns.describe())
+
+        columns = rain_ns.columns
+
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
+
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(rain_ns, option_one, option_two)
+
+        else:
+            coefficients(rain_ns, option_one, option_two)
+
+        heatmap(rain_ns, 'Rain conditions comparisons and correlation')
+        pairplot(rain_ns)
+
+
+    elif (option == "Budimci"):
+
+        st.write(rain_bu.describe())
+
+        columns = rain_bu.columns
+
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
+
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(rain_bu, option_one, option_two)
+
+        else:
+            coefficients(rain_bu, option_one, option_two)
+
+        heatmap(rain_bu, 'Rain conditions comparisons and correlation')
+        pairplot(rain_bu)
+
+
+
+
 
 
 
