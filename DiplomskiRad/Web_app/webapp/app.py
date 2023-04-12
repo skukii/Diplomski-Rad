@@ -21,24 +21,30 @@ temp_os = pd.read_csv("pin_cop_os_temp_web - Copy.csv", index_col = [0])
 
 air_bu = pd.read_csv("pin_cop_bu_air_web - Copy.csv", index_col = [0])
 air_bu = air_bu[["Air moisture.mean", "humidity"]]
-air_bu.fillna(0, inplace=True)
-air_bu.replace([np.inf, -np.inf], 0, inplace=True)
+air_bu.dropna(inplace=True)
 rad_bu = pd.read_csv("pin_cop_bu_radiation_web - Copy.csv", index_col = [0])
-rad_bu.fillna(0, inplace=True)
-rad_bu.replace([np.inf, -np.inf], 0, inplace=True)
+rad_bu.dropna(inplace=True)
 rain_bu = pd.read_csv("pin_cop_bu_rain_web - Copy.csv", index_col = [0])
-rain_bu.fillna(0, inplace=True)
-rain_bu.replace([np.inf, -np.inf], 0, inplace=True)
+rain_bu.dropna(inplace=True)
 temp_ground_bu = pd.read_csv("pin_cop_bu_temp_ground_web - Copy.csv", index_col = [0])
-temp_ground_bu.fillna(0, inplace=True)
-temp_ground_bu.replace([np.inf, -np.inf], 0, inplace=True)
+temp_ground_bu.dropna(inplace=True)
 temp_bu = pd.read_csv("pin_cop_bu_temp_web - Copy.csv", index_col = [0])
-temp_bu.fillna(0, inplace=True)
-temp_bu.replace([np.inf, -np.inf], 0, inplace=True)
+temp_bu.dropna(inplace=True)
 wind_bu = pd.read_csv("pin_cop_bu_wind_web - Copy.csv", index_col = [0])
 wind_bu = wind_bu[["Wind speed.mean","Wind direction.mean","u_v_speed","u_v_wind_dir"]]
-wind_bu.fillna(0, inplace=True)
-wind_bu.replace([np.inf, -np.inf], 0, inplace=True)
+wind_bu.dropna(inplace=True)
+
+air_sk = pd.read_csv("pin_cop_sk_air_web - Copy.csv", index_col = [0])
+air_sk.dropna(inplace=True)
+rad_sk = pd.read_csv("pin_cop_sk_radiation_web - Copy.csv", index_col = [0])
+rad_sk.dropna(inplace=True)
+rain_sk = pd.read_csv("pin_cop_sk_rain_web - Copy.csv", index_col = [0])
+rain_sk.dropna(inplace=True)
+temp_sk = pd.read_csv("pin_cop_sk_temp_web - Copy.csv", index_col = [0])
+temp_sk.dropna(inplace=True)
+wind_sk = pd.read_csv("pin_cop_sk_wind_web - Copy.csv", index_col = [0])
+wind_sk = wind_sk[["Wind speed.mean","Wind direction.mean","u_v_speed","u_v_wind_dir"]]
+wind_sk.dropna(inplace=True)
 
 
 
@@ -121,7 +127,7 @@ if check == "Wind":
     st.title('Wind')
     option = st.selectbox(
         "Location",
-        ("Osijek", "Budimci"))
+        ("Osijek", "Budimci", "Skenderovci"))
 
     if (option == "Osijek"):
 
@@ -147,7 +153,7 @@ if check == "Wind":
         heatmap(wind_os, 'Wind comparisons and correlation')
         pairplot(wind_os)
 
-    if (option == "Budimci"):
+    elif (option == "Budimci"):
 
         st.write(wind_bu.describe())
 
@@ -159,24 +165,45 @@ if check == "Wind":
         option_two = st.selectbox(
             "Column 2:",
             (columns))
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
 
         if ((option_one is not None) & (option_two is not None)):
-            coefficients(wind_bu, option_one, option_two)
+            coefficients(wind_bu, option_one, option_two, alpha)
 
         else:
-            coefficients(wind_bu, option_one, option_two)
+            coefficients(wind_bu, option_one, option_two, alpha)
 
         heatmap(wind_bu, 'Wind comparisons and correlation')
         pairplot(wind_bu)
 
+    elif (option == "Skenderovci"):
 
+        st.write(wind_sk.describe())
 
+        columns = wind_sk.columns
+
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
+
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(wind_sk, option_one, option_two, alpha)
+
+        else:
+            coefficients(wind_sk, option_one, option_two, alpha)
+
+        heatmap(wind_sk, 'Wind comparisons and correlation')
+        pairplot(wind_sk)
 
 elif check == "Temperature":
 
     option = st.selectbox(
         "Location",
-        ("Osijek", "Novi Rok", "Budimci"))
+        ("Osijek", "Novi Rok", "Budimci", "Skenderovci"))
 
     st.title('Temperature')
 
@@ -193,11 +220,12 @@ elif check == "Temperature":
             "Column 2:",
             (columns))
 
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
         if ((option_one is not None) & (option_two is not None)):
-            coefficients(temp_ns, option_one, option_two)
+            coefficients(temp_ns, option_one, option_two, alpha)
 
         else:
-            coefficients(temp_ns, option_one, option_two)
+            coefficients(temp_ns, option_one, option_two, alpha)
 
         heatmap(temp_ns, 'Temperature comparisons and correlation')
         pairplot(temp_ns)
@@ -216,18 +244,19 @@ elif check == "Temperature":
             "Column 2:",
             (columns))
 
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
         if ((option_one is not None) & (option_two is not None)):
-            coefficients(temp_os, option_one, option_two)
+            coefficients(temp_os, option_one, option_two, alpha)
 
         else:
-            coefficients(temp_os, option_one, option_two)
+            coefficients(temp_os, option_one, option_two, alpha)
 
         heatmap(temp_os, 'Temperature comparisons and correlation')
         pairplot(temp_os[["dew-pt", "dew2m", "temp2m", "temp-out"]])
         pairplot(temp_os[["max2mt", "min2mt", "hi-temp", "low-temp"]])
 
 
-    if (option == "Budimci"):
+    elif (option == "Budimci"):
 
         st.write(temp_bu.describe())
 
@@ -240,16 +269,38 @@ elif check == "Temperature":
             "Column 2:",
             (columns))
 
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
         if ((option_one is not None) & (option_two is not None)):
-            coefficients(temp_bu, option_one, option_two)
+            coefficients(temp_bu, option_one, option_two, alpha)
 
         else:
-            coefficients(temp_bu, option_one, option_two)
+            coefficients(temp_bu, option_one, option_two, alpha)
 
         heatmap(temp_bu, 'Temperature comparisons and correlation')
         pairplot(temp_bu)
 
+    elif (option == "Skenderovci"):
 
+        st.write(temp_sk.describe())
+
+        columns = temp_sk.columns
+
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
+
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(temp_sk, option_one, option_two, alpha)
+
+        else:
+            coefficients(temp_sk, option_one, option_two, alpha)
+
+        heatmap(temp_sk, 'Temperature comparisons and correlation')
+        pairplot(temp_sk)
 
 elif check == "Soil":
     st.title('Soil')
@@ -271,11 +322,12 @@ elif check == "Soil":
             "Column 2:",
             (columns))
 
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
         if ((option_one is not None) & (option_two is not None)):
-            coefficients(soil_ns, option_one, option_two)
+            coefficients(soil_ns, option_one, option_two, alpha)
 
         else:
-            coefficients(soil_ns, option_one, option_two)
+            coefficients(soil_ns, option_one, option_two, alpha)
 
         heatmap(soil_ns, 'Soil comparisons and correlation')
         pairplot(soil_ns)
@@ -293,11 +345,12 @@ elif check == "Soil":
             "Column 2:",
             (columns))
 
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
         if ((option_one is not None) & (option_two is not None)):
-            coefficients(temp_ground_bu, option_one, option_two)
+            coefficients(temp_ground_bu, option_one, option_two, alpha)
 
         else:
-            coefficients(temp_ground_bu, option_one, option_two)
+            coefficients(temp_ground_bu, option_one, option_two, alpha)
 
         heatmap(temp_ground_bu, 'Soil comparisons and correlation')
         pairplot(temp_ground_bu)
@@ -307,7 +360,7 @@ elif check == "Air conditions":
 
     option = st.selectbox(
         "Location",
-        ("Osijek", "Novi Rok", "Budimci"))
+        ("Osijek", "Novi Rok", "Budimci", "Skenderovci"))
 
     if (option == "Osijek"):
 
@@ -322,11 +375,12 @@ elif check == "Air conditions":
             "Column 2:",
             (columns))
 
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
         if ((option_one is not None) & (option_two is not None)):
-            coefficients(air_os, option_one, option_two)
+            coefficients(air_os, option_one, option_two, alpha)
 
         else:
-            coefficients(air_os, option_one, option_two)
+            coefficients(air_os, option_one, option_two, alpha)
 
         heatmap(air_os, 'Air conditions comparisons and correlation')
         pairplot(air_os)
@@ -344,11 +398,12 @@ elif check == "Air conditions":
             "Column 2:",
             (columns))
 
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
         if ((option_one is not None) & (option_two is not None)):
-            coefficients(air_ns, option_one, option_two)
+            coefficients(air_ns, option_one, option_two, alpha)
 
         else:
-            coefficients(air_ns, option_one, option_two)
+            coefficients(air_ns, option_one, option_two, alpha)
 
         heatmap(air_ns, 'Air conditions comparisons and correlation')
         pairplot(air_ns)
@@ -366,11 +421,12 @@ elif check == "Air conditions":
             "Column 2:",
             (columns))
 
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
         if ((option_one is not None) & (option_two is not None)):
-            coefficients(air_bu, option_one, option_two)
+            coefficients(air_bu, option_one, option_two, alpha)
 
         else:
-            coefficients(air_bu, option_one, option_two)
+            coefficients(air_bu, option_one, option_two, alpha)
 
         heatmap(air_bu, 'Air conditions comparisons and correlation')
         pairplot(air_bu)
@@ -393,13 +449,35 @@ elif check == "Air conditions":
         heatmap(rad_bu, 'Air conditions comparisons and correlation')
         pairplot(rad_bu)
 
+    elif (option == "Skenderovci"):
+
+        st.write(air_sk.describe())
+
+        columns = air_sk.columns
+
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
+
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(air_sk, option_one, option_two, alpha)
+
+        else:
+            coefficients(air_sk, option_one, option_two, alpha)
+
+        heatmap(air_sk, 'Air conditions comparisons and correlation')
+        pairplot(air_sk)
 
 elif check == "Rain":
     st.title('Rain')
 
     option = st.selectbox(
         "Location",
-        ("Osijek", "Novi Rok", "Budimci"))
+        ("Osijek", "Novi Rok", "Budimci", "Skenderovci"))
 
     if(option == "Osijek"):
 
@@ -414,11 +492,12 @@ elif check == "Rain":
             "Column 2:",
             (columns))
 
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
         if ((option_one is not None) & (option_two is not None)):
-            coefficients(rain_os, option_one, option_two)
+            coefficients(rain_os, option_one, option_two, alpha)
 
         else:
-            coefficients(rain_os, option_one, option_two)
+            coefficients(rain_os, option_one, option_two, alpha)
 
         heatmap(rain_os, 'Rain conditions comparisons and correlation')
         pairplot(rain_os)
@@ -436,11 +515,12 @@ elif check == "Rain":
             "Column 2:",
             (columns))
 
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
         if ((option_one is not None) & (option_two is not None)):
-            coefficients(rain_ns, option_one, option_two)
+            coefficients(rain_ns, option_one, option_two, alpha)
 
         else:
-            coefficients(rain_ns, option_one, option_two)
+            coefficients(rain_ns, option_one, option_two, alpha)
 
         heatmap(rain_ns, 'Rain conditions comparisons and correlation')
         pairplot(rain_ns)
@@ -459,14 +539,37 @@ elif check == "Rain":
             "Column 2:",
             (columns))
 
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
         if ((option_one is not None) & (option_two is not None)):
-            coefficients(rain_bu, option_one, option_two)
+            coefficients(rain_bu, option_one, option_two, alpha)
 
         else:
-            coefficients(rain_bu, option_one, option_two)
+            coefficients(rain_bu, option_one, option_two, alpha)
 
         heatmap(rain_bu, 'Rain conditions comparisons and correlation')
         pairplot(rain_bu)
+
+    elif (option == "Skenderovci"):
+
+        st.write(rain_sk.describe())
+
+        columns = rain_sk.columns
+
+        option_one = st.selectbox(
+            "Column 1:",
+            (columns))
+        option_two = st.selectbox(
+            "Column 2:",
+            (columns))
+        alpha = st.text_input('Set the significance level (alpha): ', '0.05')
+        if ((option_one is not None) & (option_two is not None)):
+            coefficients(rain_sk, option_one, option_two, alpha)
+
+        else:
+            coefficients(rain_sk, option_one, option_two, alpha)
+
+        heatmap(rain_sk, 'Rain conditions comparisons and correlation')
+        pairplot(rain_sk)
 
 
 

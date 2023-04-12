@@ -56,7 +56,7 @@ def novo_selo_script():
 
 
 
-#novo_selo_script()
+novo_selo_script()
 
-split_and_correlation(pd.read_csv("bu_pin_cop_merged.csv"))
+#split_and_correlation(pd.read_csv("bu_pin_cop_merged.csv"))
 
