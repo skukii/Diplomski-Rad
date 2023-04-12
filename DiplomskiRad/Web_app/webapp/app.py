@@ -77,27 +77,35 @@ sns.set(rc={'axes.facecolor':'#00172B',
 
 def coefficients(df, col1, col2, alpha):
     corr_persons = stats.pearsonr(df[col1], df[col2])
-    st.write('2-tailed p-value Pearsons: ', corr_persons[1])
+    st.write("With hypothesis zero being: there is no correlation between two columns: ")
     if corr_persons[1] < (float(alpha)/2):
-        st.write('There is a significant correlation between column1 and column2')
+        st.write('2-tailed p-value Pearsons: ', corr_persons[1], '  (There is a statistically significant correlation)')
     else:
-        st.write('There is no significant correlation between column1 and column2')
-    #st.markdown('_The p-value roughly indicates the probability of an uncorrelated system producing datasets that have a Pearson correlation at least as extreme as the one computed from these datasets._')
+        st.write('2-tailed p-value Pearsons: ', corr_persons[1], '  (There is no statistically significant correlation)')
     corr_kendall = stats.kendalltau(df[col1], df[col2])
-    st.write('2-tailed p-value Kendall: ', corr_kendall[1])
     if corr_kendall[1] < (float(alpha)/2):
-        st.write('There is a significant correlation between column1 and column2')
+        st.write('2-tailed p-value Kendall: ', corr_kendall[1], '  (There is a statistically significant correlation)')
     else:
-        st.write('There is no significant correlation between column1 and column2')
-    #st.markdown('_The p - value for a hypothesis test whose null hypothesis is an absence of association, tau = 0._')
-
+        st.write('2-tailed p-value Kendall: ', corr_kendall[1], '  (There is no statistically significant correlation)')
     corr_spearmans = stats.spearmanr(df[col1], df[col2])
-    st.write('2-tailed p-value Spearman: ', corr_spearmans[1])
     if corr_spearmans[1] < (float(alpha)/2):
-        st.write('There is a significant correlation between column1 and column2')
+        st.write('2-tailed p-value Spearman: ', corr_spearmans[1], '  (There is a statistically significant correlation)')
     else:
-        st.write('There is no significant correlation between column1 and column2')
-    #st.markdown('_The p-value roughly indicates the probability of an uncorrelated system producing datasets that have a Spearman correlation at least as extreme as the one computed from these datasets.._')
+        st.write('2-tailed p-value Spearman: ', corr_spearmans[1], '  (There is no statistically significant correlation)')
+
+    st.write("##")
+    x = df[col1]
+    y = df[col2]
+    mask = ~np.isnan(x) & ~np.isnan(y)
+    slope, intercept, r_value, p_value, std_err = stats.linregress(x[mask], y[mask])
+    st.write('Linear regression of 2 variables: ')
+    st.write('Slope: ', slope)
+    st.write('Intercept: ', intercept)
+    st.write('R value: ', r_value)
+    st.write('p-value: ', p_value)
+    st.write('Standard error: ', std_err)
+
+
 
 def heatmap(df, title):
     fig, axes = plt.subplots(1, 3, figsize=(15, 5), sharey=True)

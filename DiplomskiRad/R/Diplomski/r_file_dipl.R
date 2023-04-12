@@ -1,0 +1,5 @@
+bu <- read.csv(file = 'pin_cop_bu_wind_web.csv')
+model1 = aov(Wind.speed.mean ~ u_v_speed, data=bu)
+model2 = lm(Wind.speed.mean ~ u_v_speed, data=bu)
+summary(model1)
+summary(model2)
