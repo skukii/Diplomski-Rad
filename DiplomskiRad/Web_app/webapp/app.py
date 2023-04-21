@@ -78,20 +78,34 @@ sns.set(rc={'axes.facecolor':'#00172B',
 def coefficients(df, col1, col2, alpha):
     corr_persons = stats.pearsonr(df[col1], df[col2])
     st.write("With hypothesis zero being: there is no correlation between two columns: ")
+
     if corr_persons[1] < (float(alpha)/2):
         st.write('2-tailed p-value Pearsons: ', corr_persons[1], '  (There is a statistically significant correlation)')
     else:
         st.write('2-tailed p-value Pearsons: ', corr_persons[1], '  (There is no statistically significant correlation)')
+
+    with st.expander("See explanation for Pearson"):
+        st.write("In statistics, the Pearson correlation coefficient is a measure of linear correlation between two sets of data. It is the ratio between the covariance of two variables and the product of their standard deviations")
+
     corr_kendall = stats.kendalltau(df[col1], df[col2])
     if corr_kendall[1] < (float(alpha)/2):
         st.write('2-tailed p-value Kendall: ', corr_kendall[1], '  (There is a statistically significant correlation)')
     else:
         st.write('2-tailed p-value Kendall: ', corr_kendall[1], '  (There is no statistically significant correlation)')
+
+    with st.expander("See explanation for Kendall"):
+        st.write("In statistics the Kendall rank correlation coefficient is a statistic used to measure the ordinal association between two measured quantities. A τ test is a non-parametric hypothesis test for statistical dependence based on the τ coefficient.")
+
+
     corr_spearmans = stats.spearmanr(df[col1], df[col2])
     if corr_spearmans[1] < (float(alpha)/2):
         st.write('2-tailed p-value Spearman: ', corr_spearmans[1], '  (There is a statistically significant correlation)')
     else:
         st.write('2-tailed p-value Spearman: ', corr_spearmans[1], '  (There is no statistically significant correlation)')
+
+    with st.expander("See explanation for Spearman"):
+        st.write("In statistics, Spearman's rank correlation coefficient or Spearman's ρ, is a nonparametric measure of rank correlation (statistical dependence between the rankings of two variables). It assesses how well the relationship between two variables can be described using a monotonic function.")
+
 
     st.write("##")
     x = df[col1]
@@ -101,9 +115,17 @@ def coefficients(df, col1, col2, alpha):
     st.write('Linear regression of 2 variables: ')
     st.write('Slope: ', slope)
     st.write('Intercept: ', intercept)
-    st.write('R value: ', r_value)
+    st.write('R squared value: ', r_value*r_value)
     st.write('p-value: ', p_value)
     st.write('Standard error: ', std_err)
+
+    with st.expander("See explanation for linear regression variables:"):
+        st.write("Slope: Slope of the regression line.")
+        st.write("Intercept: Intercept of the regression line.")
+        st.write("R squared value: The square of rvalue is equal to the coefficient of determination.")
+        st.write("p-value: The p-value for a hypothesis test whose null hypothesis is that the slope is zero, using Wald Test with t-distribution of the test statistic.")
+        st.write("Standard error: Standard error of the estimated slope (gradient), under the assumption of residual normality.")
+
 
 
 
